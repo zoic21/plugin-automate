@@ -84,7 +84,7 @@ class automate extends eqLogic {
 		}
 	}
 
-	public function generateXml($_flow) {
+	public function generateFile($_flow) {
 		$config = self::flowParameters($_flow);
 		if (count($config) == 0) {
 			throw new Exception(__('Impossible de trouver le fichier de config : ', __FILE__) . $_flow);
@@ -92,7 +92,7 @@ class automate extends eqLogic {
 		$replace = array(
 			'#name#' => $this->getName(),
 			'#eqLogic_id#' => $this->getId(),
-			'#apikey#' => config::byKey('api'),
+			'#apikey#' => jeedom::getApiKey('automate'),
 			'#network::external#' => network::getNetworkAccess('external'),
 		);
 		if (isset($config['commands']) && $config['commands'] > 0) {
@@ -128,12 +128,11 @@ class automate extends eqLogic {
 			rrmdir($dir);
 		}
 		mkdir($dir);
-		foreach ($config['profil'] as $profil) {
-			$xml = str_replace(array_keys($replace), $replace, file_get_contents(dirname(__FILE__) . '/../config/flow/' . $profil));
-			file_put_contents($dir . '/' . basename(dirname(__FILE__) . '/../config/flow/' . $profil), $xml);
+		foreach ($config['files'] as $file) {
+			$data = str_replace(array_keys($replace), $replace, file_get_contents(dirname(__FILE__) . '/../config/flow/' . $file));
+			file_put_contents($dir . '/' . basename(dirname(__FILE__) . '/../config/flow/' . $file), $data);
 		}
-
-		return str_replace(array_keys($replace), $replace, $xml);
+		return;
 	}
 
 	/*     * **********************Getteur Setteur*************************** */
@@ -147,51 +146,7 @@ class automateCmd extends cmd {
 	/*     * *********************Methode d'instance************************* */
 
 	public function execute($_options = array()) {
-		$eqLogic = $this->getEqLogic();
-		if ($this->getLogicalId() == 'autoremote::notify') {
-			$url = 'https://autoremotejoaomgcd.appspot.com/sendnotification?key=' . $eqLogic->getConfiguration('autoremote::key');
-			if ($eqLogic->getConfiguration('autoremote::password') != '') {
-				$url .= '&password=' . urlencode($eqLogic->getConfiguration('autoremote::password'));
-			}
-			if (isset($_options['message']) && (!isset($_options['title']) || $_options['title'] == '')) {
-				$_options['title'] = $_options['message'];
-				unset($_options['message']);
-			}
-			if (isset($_options['title'])) {
-				$url .= '&title=' . urlencode($_options['title']);
-			}
-			if (isset($_options['message'])) {
-				$url .= '&text=' . urlencode($_options['message']);
-			}
-			if (isset($_options['files']) && count($_options['files']) > 0) {
-				$foundfile = null;
-				foreach ($_options['files'] as $file) {
-					$pathinfo = pathinfo($file);
-					if (in_array($pathinfo['extension'], array('jpg', 'png', 'gif'))) {
-						$foundfile = $file;
-						break;
-					}
-				}
-				if ($foundfile !== null) {
-					$url .= '&picture=' . urlencode(network::getNetworkAccess('external') . '/core/php/downloadFile.php?apikey=' . config::byKey('api') . '&pathfile=' . urlencode($foundfile));
-				}
-			}
-			if (isset($_options['answer'])) {
-				$i = 1;
-				foreach ($_options['answer'] as $answer) {
-					$url .= '&action' . $i . '=ask=:=' . urlencode(network::getNetworkAccess('external') . '/core/api/jeeApi.php?apikey=' . config::byKey('api') . '&type=automate&id=' . $this->getId() . '&value=' . urlencode($answer)) . '&action' . $i . 'name=' . urlencode($answer) . '&action' . $i . 'icon=navigation_accept';
-					if ($i >= 3) {
-						break;
-					}
-					$i++;
-				}
-				$url .= '&statusbaricon=action_help';
-			} else {
-				$url .= '&statusbaricon=action_about';
-			}
-			$request_http = new com_http($url);
-			$request_http->exec();
-		}
+
 	}
 
 	/*     * **********************Getteur Setteur*************************** */

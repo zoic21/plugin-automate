@@ -66,7 +66,7 @@ $('.downloadflow').on('click',function(){
     type: "POST", 
     url: "plugins/automate/core/ajax/automate.ajax.php", 
     data: {
-        action: "generateXml",
+        action: "generateFile",
         flow: $(this).attr('data-flow'),
         id: $('.eqLogicAttr[data-l1key=id]').value(),
     },

@@ -24,12 +24,12 @@ try {
 		throw new Exception(__('401 - Accès non autorisé', __FILE__));
 	}
 
-	if (init('action') == 'generateXml') {
+	if (init('action') == 'generateFile') {
 		$automate = automate::byId(init('id'));
 		if (!is_object($automate)) {
 			throw new Exception(__('Objet automate non trouvé : ' . init('id')));
 		}
-		$automate->generateXml(init('flow'));
+		$automate->generateFile(init('flow'));
 		ajax::success();
 	}
 

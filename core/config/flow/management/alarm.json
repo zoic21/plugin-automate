@@ -1,0 +1,21 @@
+{
+    "alarm": {
+        "name" : "Alarme",
+        "groupe" : "Gestion",
+        "description" : "Envoi un signal lorsque l'alarme du téléphone se déclenche",
+        "profil" :[
+           "management/alarm.png",
+           "management/alarm.txt"
+       ],
+        "commands": [
+            {
+                "name": "Alarme",
+                "type": "info",
+                "subtype": "binary",
+                "isVisible": 1,
+                "isHistorized": 0,
+                "logicalId": "alarm"
+            }
+        ]
+    }
+}

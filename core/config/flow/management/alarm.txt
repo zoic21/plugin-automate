@@ -1,0 +1,13 @@
+﻿= Bloc
+
+== Alarm?
+* Proceed : When Change
+
+== Http request
+
+* Request url : #network::external#/core/api/jeeApi.php?type=automate&apikey=#apikey#&id=#alarm_id#&value={lat},{long}
+* Request method : GET
+* Request Content Type : JSON
+* Trust ainsecure certificate : 1 (si vous etes en certificat auto signé)
+* Don't follow redirects : 1
+* Save response : Don't save

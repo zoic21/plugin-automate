@@ -3,8 +3,9 @@
         "name" : "Position",
         "groupe" : "Localisation",
         "description" : "Envoi les coordonées GPS du téléphone lorsque l'utilisateur",
-        "profil" :[
-            "location/location.flo"
+        "files" :[
+            "location/location.png",
+            "location/location.txt"
         ],
         "commands": [
             {

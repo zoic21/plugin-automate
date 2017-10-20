@@ -1,0 +1,19 @@
+﻿= Bloc
+
+== Location Get
+
+* Proceed : When Change
+* Location provider : Balanced
+* Minimum distance : 100
+* Output variable : 
+** Location fix latitude : lat
+** Location fix longitude : long
+
+== Http request
+
+* Request url : #network::external#/core/api/jeeApi.php?type=automate&apikey=#apikey#&id=#location_id#&value={lat},{long}
+* Request method : GET
+* Request Content Type : JSON
+* Trust ainsecure certificate : 1 (si vous etes en certificat auto signé)
+* Don't follow redirects : 1
+* Save response : Don't save
