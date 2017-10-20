@@ -1,0 +1,20 @@
+{
+    "location": {
+        "name" : "Position",
+        "groupe" : "Localisation",
+        "description" : "Envoi les coordonées GPS du téléphone lorsque l'utilisateur",
+        "profil" :[
+            "location/location.flo"
+        ],
+        "commands": [
+            {
+                "name": "Position",
+                "type": "info",
+                "subtype": "string",
+                "isVisible": 1,
+                "isHistorized": 0,
+                "logicalId": "location"
+            }
+        ]
+    }
+}

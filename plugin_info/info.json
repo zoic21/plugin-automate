@@ -1,0 +1,11 @@
+{
+	"id" : "automate",
+	"name" : "Automate",
+	"description" : "Plugin Automate",
+	"licence" : "AGPL",
+	"author" : "Loïc",
+	"require" : "3.0",
+	"category" : "programming",
+	"changelog" : "https://github.com/zoic21/plugin-automate/blob/stable/doc/#language#/changelog.asciidoc",
+	"documentation" : "https://github.com/zoic21/plugin-automate/blob/stable/doc/#language#/index.asciidoc"
+}
